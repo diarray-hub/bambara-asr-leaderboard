@@ -1,4 +1,4 @@
-gradio>=4.0.0
+gradio==5.38.2
 pandas>=1.5.0
 jiwer>=3.0.0
 datasets>=2.0.0
