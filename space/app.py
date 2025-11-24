@@ -1,6 +1,3 @@
-
-
-
 import gradio as gr
 from utils.utils_fuunctions import (
     load_references,
@@ -22,10 +19,10 @@ from utils.utils_fuunctions import (
 )
 import os
 from settings.models import Settings
-from assets.styles.styles import (
+from assets.styles.themes import (
     get_logo_html,
-    professional_header_html as new_header_html,
-    professional_css as google_style_css
+    header_html ,
+    style_css
 )
 
 import pandas as pd
@@ -65,8 +62,8 @@ MODEL_NAME_LIST = sorted(current_data['Model_Name'].unique()) if len(current_dat
 
 favicon_head = '<link rel="icon" type="image/x-icon" href="/file=favicon.ico">'
 
-with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboard", css=google_style_css, head=favicon_head) as demo:
-    gr.HTML(new_header_html)
+with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboard", css=style_css, head=favicon_head) as demo:
+    gr.HTML(header_html)
     
     with gr.Row():
         gr.Button("MALIBA-AI", link="https://huggingface.co/MALIBA-AI", elem_classes=['flat-navy-button'])
@@ -93,7 +90,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
     
         with gr.Tabs() as tabs:
             with gr.Tab("Main Leaderboard", id="main"):
-                gr.HTML("<br><br><center><h1>Main Leaderboard</h1></center><br>")
+                gr.HTML("<br><br><center><h2 style='color: #000000;'>Main Leaderboard</h2></center><br>")
                 main_leaderboard = create_main_leaderboard()
                 gr.HTML(df_to_html(main_leaderboard))
         
@@ -102,7 +99,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
             
                 if MODEL_NAME_LIST:
                     initial_model = MODEL_NAME_LIST[0]
-                    initial_title_html = f"<h3><span class='title'>Model name:</span> {initial_model}</h3>"
+                    initial_title_html = f"<h3 style='color: #2f3b7d;'><span style='color: #7d3561; font-weight: 700;'>Model name:</span> {initial_model}</h3>"
                     model_title_component = gr.HTML(initial_title_html)
                 
                     model_dropdown = gr.Dropdown(
@@ -116,7 +113,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 
                     def update_model_display(model_name):
                         table = get_model_performance_table(model_name)
-                        title = f"<h3><span class='title'>Model name:</span> {model_name}</h3>"
+                        title = f"<h3 style='color: #2f3b7d;'><span style='color: #7d3561; font-weight: 700;'>Model name:</span> {model_name}</h3>"
                         return title, df_to_html(table)
                 
                     model_dropdown.change(
@@ -145,11 +142,11 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     explanation_note_md = gr.Markdown(explanation_note, visible=False)
                 
                     with gr.Column(elem_id="models_comparison_table"):
-                        comparison_output = gr.HTML("<p style='text-align:center;'>Select two models and click Compare to see the results.</p>")
+                        comparison_output = gr.HTML("<p style='text-align:center; color: #212529;'>Select two models and click Compare to see the results.</p>")
                 
                     def update_comparison_display(m1, m2):
                         if not m1 or not m2:
-                            return gr.update(visible=False), "<p style='text-align:center;'>Please select two models to compare.</p>"
+                            return gr.update(visible=False), "<p style='text-align:center; color: #212529;'>Please select two models to compare.</p>"
                     
                         comp_df = compare_models(m1, m2)
                         return gr.update(visible=True), df_to_html(comp_df)
@@ -160,7 +157,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                         outputs=[explanation_note_md, comparison_output]
                     )
                 else:
-                    gr.HTML("<p>At least 2 models are required for comparison.</p>")
+                    gr.HTML("<p style='color: #212529;'>At least 2 models are required for comparison.</p>")
         
             with gr.Tab("📊 Submit New Results", id="submit"):
                 gr.HTML("<br><br><center><h2>Submit New Model Results</h2></center><br>")
