@@ -1,5 +1,5 @@
 import gradio as gr
-from utils.utils_fuunctions import (
+from utils.utils_functions import (
     load_references,
     mask_sensitive_info,
     run_command,
@@ -29,12 +29,11 @@ import pandas as pd
 
 config = Settings()
 
-# Git configuration (uncomment if needed)
-# run_command(["git", "config", "--global", "user.email", config.github_email])
-# run_command(["git", "config", "--global", "user.name", "HF Space"])
-# remote_url = f"https://{config.github_user}:{config.github_token}@github.com/{config.github_repo}.git"
-# run_command(["git", "remote", "set-url", "--push", "origin", remote_url], check=True, capture_output=True)  
-# git_pull()
+run_command(["git", "config", "--global", "user.email", config.github_email])
+run_command(["git", "config", "--global", "user.name", "HF Space"])
+remote_url = f"https://{config.github_user}:{config.github_token}@github.com/{config.github_repo}.git"
+run_command(["git", "remote", "set-url", "--push", "origin", remote_url], check=True, capture_output=True)  
+git_pull()
 
 references = load_references()
 
