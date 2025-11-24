@@ -1,6 +1,8 @@
+
+
+
 import gradio as gr
 from utils.utils_fuunctions import (
-
     load_references,
     mask_sensitive_info,
     run_command,
@@ -22,19 +24,20 @@ import os
 from settings.models import Settings
 from assets.styles.styles import (
     get_logo_html,
-    new_header_html,
-    google_style_css
+    professional_header_html as new_header_html,
+    professional_css as google_style_css
 )
+
+import pandas as pd
 
 config = Settings()
 
-run_command(["git", "config", "--global", "user.email", config.github_email])
-run_command(["git", "config", "--global", "user.name", "HF Space"])
-
-remote_url = f"https://{config.github_user}:{config.github_token}@github.com/{config.github_repo}.git"
-run_command(["git", "remote", "set-url", "--push", "origin", remote_url], check=True, capture_output=True)  
-
-git_pull()
+# Git configuration (uncomment if needed)
+# run_command(["git", "config", "--global", "user.email", config.github_email])
+# run_command(["git", "config", "--global", "user.name", "HF Space"])
+# remote_url = f"https://{config.github_user}:{config.github_token}@github.com/{config.github_repo}.git"
+# run_command(["git", "remote", "set-url", "--push", "origin", remote_url], check=True, capture_output=True)  
+# git_pull()
 
 references = load_references()
 
@@ -43,24 +46,25 @@ logo_path = config.logo_path
 
 if not os.path.exists(leaderboard_file):
     sample_data = [
-                    ["MALIBA-AI/bambara-whisper-base", 0.2264, 0.1094, 0.1679, "2025-03-15 10:30:45"],
-                    ["OpenAI/whisper-large-v3", 0.3264, 0.1594, 0.2429, "2025-03-15 10:30:45"],
-                    ["Meta/seamless-m4t-v2", 0.4156, 0.2134, 0.3149, "2025-03-15 10:30:45"],
+        ["MALIBA-AI/bambara-whisper-base", 0.2264, 0.1094, 0.1679, "2025-03-15 10:30:45"],
+        ["OpenAI/whisper-large-v3", 0.3264, 0.1594, 0.2429, "2025-03-15 10:30:45"],
+        ["Meta/seamless-m4t-v2", 0.4156, 0.2134, 0.3149, "2025-03-15 10:30:45"],
     ]
     pd.DataFrame(sample_data,
                  columns=[
-                          "Model_Name",
-                          "WER",
-                          "CER",
-                          "Combined_Score",
-                          "timestamp"
-                          ]).to_csv(leaderboard_file, index=False)
+                     "Model_Name",
+                     "WER",
+                     "CER",
+                     "Combined_Score",
+                     "timestamp"
+                 ]).to_csv(leaderboard_file, index=False)
     git_add_commit_push("Initialize leaderboard with sample data")
 
 current_data = get_current_leaderboard()
 MODEL_NAME_LIST = sorted(current_data['Model_Name'].unique()) if len(current_data) > 0 else []
 
 favicon_head = '<link rel="icon" type="image/x-icon" href="/file=favicon.ico">'
+
 with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboard", css=google_style_css, head=favicon_head) as demo:
     gr.HTML(new_header_html)
     
@@ -74,19 +78,22 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
     with gr.Group(elem_classes="content-card"):
         gr.Markdown("<br>")
         
-    
         if len(current_data) > 0:
             best_model = current_data.sort_values("Combined_Score").iloc[0]
             gr.Markdown(f"""
+            <div class="best-model-card">
+            
             ### 🏆 Current Best Model: **{best_model['Model_Name']}**
             * WER: **{best_model['WER']*100:.2f}%**
             * CER: **{best_model['CER']*100:.2f}%**
             * Combined Score: **{best_model['Combined_Score']*100:.2f}%**
+            </div>
             """)
+
     
         with gr.Tabs() as tabs:
             with gr.Tab("Main Leaderboard", id="main"):
-                gr.HTML("<br><br><center><h2>Main Leaderboard</h2></center><br>")
+                gr.HTML("<br><br><center><h1>Main Leaderboard</h1></center><br>")
                 main_leaderboard = create_main_leaderboard()
                 gr.HTML(df_to_html(main_leaderboard))
         
@@ -242,16 +249,14 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     1. **Download the dataset** from the Hugging Face repository
                     2. **Process the audio files** with your ASR model
                     3. **Generate predictions** in the required CSV format:
-                    <pre style="background-color:#eef6ff; color:black; padding:10px; border-radius:8px;">
-                
-                       ```csv
-                       id,text
-                       sample_001,"your model's transcription here"
-                       sample_002,"another transcription"
-                       ...
-                       ```
-                
-                    </pre>
+                    
+                    ```csv
+                    id,text
+                    sample_001,"your model's transcription here"
+                    sample_002,"another transcription"
+                    ...
+                    ```
+                    
                     4. **Submit your results** using the "Submit New Results" tab
                 
                     ### Evaluation Guidelines
@@ -264,20 +269,19 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     ### Technical Details
                 
                     * **Text Normalization**: Removes punctuation, converts to lowercase, normalizes whitespace
-                    * **Error Calculation**: Uses the `jiwer` library for standard WER/CER computation
+                    * **Error Calculation**: Uses the jiwer library for standard WER/CER computation
                     * **Quality Assurance**: Extreme outliers are capped to prevent result manipulation
                     * **Reproducibility**: All evaluation code is open-source and transparent
                     """
                 )
-    
-    with gr.Group(elem_classes="content-card"):
-        gr.Markdown("<br>")
+
+    with gr.Group(elem_classes="content-card citation-section"):
         gr.HTML("<h2>Citation</h2>")
         gr.Markdown(
             """
             If you use the Bambara ASR benchmark for your scientific publication, or if you find the resources in this leaderboard useful, please cite our work:
-            <pre style="background-color:#eef6ff; color:black; padding:10px; border-radius:8px;">
-            <code>
+            
+            ```bibtex
             @article{bambara_asr_benchmark_2025,
                 title={Bambara ASR Benchmark: Evaluating Speech Recognition for a Low-Resource African Language},
                 author={MALIBA-AI Team and RobotsMali AI4D-LAB and Djelia},
@@ -285,20 +289,18 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 year={2025},
                 url={https://huggingface.co/datasets/sudoping01/bambara-speech-recognition-benchmark}
             }
-            </code>
-            </pre>
-        
+            ```
+            
             ### About the Collaboration
-        
+            
             This benchmark is a collaborative effort between:
-            * **MALIBA-AI**
-            * **Djelia**
-            * **RobotsMali AI4D-LAB**
-            **Mission**: "No Malian Language Left Behind" - Empowering Mali's linguistic diversity through AI innovation.
-            """,
-            elem_classes="citation-section"
+            
+            * **MALIBA-AI** - Mission: "No Malian Language Left Behind" - Empowering Mali's linguistic diversity through AI innovation
+            * **RobotsMali AI4D-LAB** - Advancing AI research and development in Mali
+            * **Djelia** - Preserving and promoting African languages through technology
+            """
         )
-    
+
     gr.HTML(
         """
         <center>
