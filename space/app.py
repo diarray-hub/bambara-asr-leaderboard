@@ -41,20 +41,21 @@ leaderboard_file = config.leaderboard_file
 logo_path = config.logo_path
 
 if not os.path.exists(leaderboard_file):
-    sample_data = [
-        ["MALIBA-AI/bambara-whisper-base", 0.2264, 0.1094, 0.1679, "2025-03-15 10:30:45"],
-        ["OpenAI/whisper-large-v3", 0.3264, 0.1594, 0.2429, "2025-03-15 10:30:45"],
-        ["Meta/seamless-m4t-v2", 0.4156, 0.2134, 0.3149, "2025-03-15 10:30:45"],
-    ]
-    pd.DataFrame(sample_data,
-                 columns=[
-                     "Model_Name",
-                     "WER",
-                     "CER",
-                     "Combined_Score",
-                     "timestamp"
-                 ]).to_csv(leaderboard_file, index=False)
-    git_add_commit_push("Initialize leaderboard with sample data")
+    raise ValueError("No file found the for the leaderboard")
+    # sample_data = [
+    #     ["MALIBA-AI/bambara-whisper-base", 0.2264, 0.1094, 0.1679, "2025-03-15 10:30:45"],
+    #     ["OpenAI/whisper-large-v3", 0.3264, 0.1594, 0.2429, "2025-03-15 10:30:45"],
+    #     ["Meta/seamless-m4t-v2", 0.4156, 0.2134, 0.3149, "2025-03-15 10:30:45"],
+    # ]
+    # pd.DataFrame(sample_data,
+    #              columns=[
+    #                  "Model_Name",
+    #                  "WER",
+    #                  "CER",
+    #                  "Combined_Score",
+    #                  "timestamp"
+    #              ]).to_csv(leaderboard_file, index=False)
+    # git_add_commit_push("Initialize leaderboard with sample data")
 
 current_data = get_current_leaderboard()
 MODEL_NAME_LIST = sorted(current_data['Model_Name'].unique()) if len(current_data) > 0 else []
