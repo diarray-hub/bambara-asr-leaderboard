@@ -42,20 +42,7 @@ logo_path = config.logo_path
 
 if not os.path.exists(leaderboard_file):
     raise ValueError("No file found the for the leaderboard")
-    # sample_data = [
-    #     ["MALIBA-AI/bambara-whisper-base", 0.2264, 0.1094, 0.1679, "2025-03-15 10:30:45"],
-    #     ["OpenAI/whisper-large-v3", 0.3264, 0.1594, 0.2429, "2025-03-15 10:30:45"],
-    #     ["Meta/seamless-m4t-v2", 0.4156, 0.2134, 0.3149, "2025-03-15 10:30:45"],
-    # ]
-    # pd.DataFrame(sample_data,
-    #              columns=[
-    #                  "Model_Name",
-    #                  "WER",
-    #                  "CER",
-    #                  "Combined_Score",
-    #                  "timestamp"
-    #              ]).to_csv(leaderboard_file, index=False)
-    # git_add_commit_push("Initialize leaderboard with sample data")
+
 
 current_data = get_current_leaderboard()
 MODEL_NAME_LIST = sorted(current_data['Model_Name'].unique()) if len(current_data) > 0 else []
@@ -68,7 +55,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
     with gr.Row():
         gr.Button("MALIBA-AI", link="https://huggingface.co/MALIBA-AI", elem_classes=['flat-navy-button'])
         gr.Button("Dataset Repository", link="https://huggingface.co/datasets/sudoping01/bambara-speech-recognition-benchmark", elem_classes=['flat-navy-button'])
-        gr.Button("GitHub Repo", link="https://github.com/sudoping01/bambara-asr-benchmark", elem_classes=['flat-navy-button'])
+        gr.Button("GitHub Repo", link="https://github.com/MALIBA-AI/bambara-asr-leaderboard", elem_classes=['flat-navy-button'])
         gr.Button("Paper", link="#", elem_classes=['flat-navy-button'])
         gr.Button("Tasks", link="#", elem_classes=['flat-navy-button'])
     
@@ -212,7 +199,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     """
                     ## Bambara ASR Benchmark Dataset
                 
-                    This leaderboard uses the **[sudoping01/bambara-speech-recognition-benchmark](https://huggingface.co/datasets/sudoping01/bambara-speech-recognition-benchmark)** dataset for evaluation.
+                    This leaderboard uses the **[MALIBA-AI/bambara-speech-recognition-leaderboard](https://huggingface.co/datasets/MALIBA-AI/bambara-speech-recognition-leaderboard)** dataset for evaluation.
                 
                     ### Dataset Characteristics
                 
@@ -284,7 +271,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 author={MALIBA-AI Team and RobotsMali AI4D-LAB and Djelia},
                 journal={arXiv preprint},
                 year={2025},
-                url={https://huggingface.co/datasets/sudoping01/bambara-speech-recognition-benchmark}
+                url={https://huggingface.co/datasets/MALIBA-AI/bambara-speech-recognition-leaderboard}
             }
             ```
             
