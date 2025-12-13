@@ -321,11 +321,11 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 
                     ### Dataset Characteristics
                 
-                    * **Language**: Bambara (native to Mali and surrounding regions)
+                    * **Language**: Bambara (pure bambara)
                     * **Task**: Automatic Speech Recognition (ASR)
-                    * **Domain**: Diverse speech samples covering various topics and speaking styles
-                    * **Speakers**: Multiple native Bambara speakers with different accents and dialects
-                    * **Audio Quality**: Various recording conditions to test model robustness
+                    * **Domain**: Mainly about the Mali constitution
+                    * **Speakers**: Single speaker (male)
+                    * **Audio Quality**: high-quality recordings (studio recordings)
                 
                     ### Evaluation Metrics
                 
@@ -389,21 +389,14 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
             
             ```bibtex
             @article{bambara_asr_benchmark_2025,
-                title={Bambara ASR Benchmark: Evaluating Speech Recognition for a Low-Resource African Language},
+                title={Bambara ASR Benchmark: Evaluating Speech Recognition for Bambara Language},
                 author={MALIBA-AI Team and RobotsMali AI4D-LAB and Djelia},
                 journal={arXiv preprint},
                 year={2025},
                 url={https://huggingface.co/datasets/MALIBA-AI/bambara-speech-recognition-leaderboard}
             }
             ```
-            
-            ### About the Collaboration
-            
-            This benchmark is a collaborative effort between:
-            
-            * **MALIBA-AI** - Mission: "No Malian Language Left Behind" - Empowering Mali's linguistic diversity through AI innovation
-            * **RobotsMali AI4D-LAB** - Advancing AI research and development in Mali
-            * **Djelia** - Preserving and promoting African languages through technology
+
             """
         )
 
