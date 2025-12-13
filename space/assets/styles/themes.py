@@ -12,7 +12,6 @@ def get_logo_html(logo_path: Optional[str] = None):
         return '<div style="width: 100px; height: 100px; background: linear-gradient(135deg, #7d3561 0%, #2f3b7d 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 48px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">🎤</div>'
 
 
-
 header_html = f"""
 <div style="text-align: center; padding: 40px 20px 30px 20px; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); border-bottom: 3px solid #7d3561;">
     <div style="display: inline-block; margin-bottom: 20px;">
@@ -29,8 +28,6 @@ header_html = f"""
     </p>
 </div>
 """
-
-
 
 style_css = """
 /* ============================================
@@ -50,6 +47,35 @@ div[class*="gradio-container"] {
 
 div.svelte-1nguped {
     background: white !important;
+}
+
+/* ============================================
+   FORCE DARK TEXT ON ALL FORM ELEMENTS
+   ============================================ */
+
+/* Labels and info text */
+label, .label-wrap, span.svelte-1gfkn6j, .info {
+    color: #212529 !important;
+}
+
+/* Slider labels and values */
+input[type="number"], .range-label, .value-label {
+    color: #212529 !important;
+}
+
+/* Radio button labels */
+.radio-group label, input[type="radio"] + label, .gr-radio label {
+    color: #212529 !important;
+}
+
+/* All span elements in forms */
+.gr-form span, .gr-box span, .gr-panel span {
+    color: #212529 !important;
+}
+
+/* Gradio specific label classes */
+span[data-testid="block-info"], .gr-block-info {
+    color: #666666 !important;
 }
 
 /* ============================================
@@ -284,7 +310,7 @@ div[class*="gradio-container"] .prose td:first-child {
 }
 
 /* ============================================
-   FORM CONTROLS
+   FORM CONTROLS - FIXED TEXT COLORS
    ============================================ */
 
 input[type="text"], textarea, .input-field {
@@ -293,12 +319,47 @@ input[type="text"], textarea, .input-field {
     padding: 10px 14px !important;
     font-size: 14px !important;
     transition: border-color 0.3s ease !important;
+    color: #212529 !important;
+    background-color: #ffffff !important;
 }
 
 input[type="text"]:focus, textarea:focus, .input-field:focus {
     border-color: #7d3561 !important;
     outline: none !important;
     box-shadow: 0 0 0 3px rgba(125, 53, 97, 0.1) !important;
+}
+
+/* Slider styling with dark text */
+.gr-slider label, .gr-slider span {
+    color: #212529 !important;
+}
+
+input[type="range"] + span {
+    color: #212529 !important;
+}
+
+/* Radio buttons with dark text */
+.gr-radio label, .gr-radio span {
+    color: #212529 !important;
+}
+
+.gr-radio input[type="radio"] + span {
+    color: #212529 !important;
+}
+
+/* Dropdown styling */
+.gr-dropdown label, .gr-dropdown span {
+    color: #212529 !important;
+}
+
+/* File upload */
+.gr-file label, .gr-file span {
+    color: #212529 !important;
+}
+
+/* Textbox */
+.gr-textbox label, .gr-textbox span {
+    color: #212529 !important;
 }
 
 button[variant="primary"] {
@@ -317,6 +378,37 @@ button[variant="primary"]:hover {
     background: linear-gradient(135deg, #5c2847 0%, #441d35 100%) !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 6px 12px rgba(125, 53, 97, 0.3) !important;
+}
+
+/* ============================================
+   WEIGHT DESCRIPTION STYLING
+   ============================================ */
+
+.weight-description {
+    color: #2f3b7d !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    padding: 10px 0 !important;
+}
+
+.weight-description p {
+    color: #2f3b7d !important;
+}
+
+/* ============================================
+   LEGEND BOX STYLING - FIXED
+   ============================================ */
+
+.legend-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 8px;
+    color: #212529 !important;
+}
+
+.legend-box strong {
+    color: #212529 !important;
 }
 
 /* ============================================
@@ -398,7 +490,7 @@ div[class*="gradio-container"] .prose p {
     margin-bottom: 16px !important;
 }
 
-div[class*="gradio-container"] .prose ul, 
+div[class*="gradio-container"] .prose ul,
 div[class*="gradio-container"] .prose ol {
     color: #212529 !important;
     line-height: 1.7 !important;
@@ -450,6 +542,41 @@ div[class*="gradio-container"] .prose pre code {
 }
 
 /* ============================================
+   GRADIO SPECIFIC OVERRIDES FOR DARK TEXT
+   ============================================ */
+
+/* Force all labels to be dark */
+.svelte-1gfkn6j {
+    color: #212529 !important;
+}
+
+/* Force all info/helper text to be visible */
+.svelte-1gfkn6j.info {
+    color: #666666 !important;
+}
+
+/* Block labels */
+.block-label, .gr-block-label {
+    color: #212529 !important;
+}
+
+/* Input labels */
+.gr-input-label, .input-label {
+    color: #212529 !important;
+}
+
+/* Ensure span elements are visible */
+.gr-box span, .gr-form span, .gr-group span {
+    color: #212529 !important;
+}
+
+/* Number input in sliders */
+input[type="number"] {
+    color: #212529 !important;
+    background: #ffffff !important;
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 
@@ -484,5 +611,10 @@ div[class*="gradio-container"] .prose pre code {
 
 .mt-4 {
     margin-top: 24px !important;
+}
+
+/* Force text color on all elements */
+.dark-text {
+    color: #212529 !important;
 }
 """
