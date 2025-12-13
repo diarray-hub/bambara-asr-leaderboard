@@ -389,21 +389,14 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
             
             ```bibtex
             @article{bambara_asr_benchmark_2025,
-                title={Bambara ASR Benchmark: Evaluating Speech Recognition for a Low-Resource African Language},
+                title={Bambara ASR Benchmark: Evaluating Speech Recognition for Bambara Language},
                 author={MALIBA-AI Team and RobotsMali AI4D-LAB and Djelia},
                 journal={arXiv preprint},
                 year={2025},
                 url={https://huggingface.co/datasets/MALIBA-AI/bambara-speech-recognition-leaderboard}
             }
             ```
-            
-            ### About the Collaboration
-            
-            This benchmark is a collaborative effort between:
-            
-            * **MALIBA-AI** - Mission: "No Malian Language Left Behind" - Empowering Mali's linguistic diversity through AI innovation
-            * **RobotsMali AI4D-LAB** - Advancing AI research and development in Mali
-            * **Djelia** - Preserving and promoting African languages through technology
+
             """
         )
 
