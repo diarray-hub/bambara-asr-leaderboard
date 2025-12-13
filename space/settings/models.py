@@ -4,7 +4,7 @@ import os
 
 class Settings(BaseSettings):
     dataset_url: str      = Field(validation_alias="DATASET_URL", default="sudoping01/bam-asr-benchmark") # this is where we have the label this is supposed to not be open (closed)
-    dataset_config: str   = Field(validation_alias="DATASET_CONFIG", default="default")
+    dataset_config: str   = Field(validation_alias="DATASET_CONFIG", default="eval")
     split_name: str       = Field(validation_alias="SPLIT_NAME", default="eval")
     leaderboard_file: str = Field(validation_alias="LEADERBOARD_FILE", default="leaderboard.csv")
     logo_path: str        = Field(validation_alias="LOGO_PATH", default="assets/images/bambara-logo.png")
