@@ -80,7 +80,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
             with gr.Tab("Main Leaderboard", id="main"):
                 gr.HTML("<br><br><center><h2 style='color: #000000;'>Main Leaderboard</h2></center><br>")
                 
-                # Flexible weighting controls
+
                 gr.Markdown("""
                 <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #7d3561;">
                     <strong>📊 Custom Ranking Weights</strong><br>
@@ -141,7 +141,6 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     outputs=[main_leaderboard_html]
                 )
                 
-                # Also update on slider change for real-time feedback
                 wer_weight_slider.change(
                     fn=lambda w, c: get_weight_description(w, c),
                     inputs=[wer_weight_slider, cer_weight_slider],
@@ -229,7 +228,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 else:
                     gr.HTML("<p style='color: #212529;'>At least 2 models are required for comparison.</p>")
         
-            with gr.Tab("📊 Submit New Results", id="submit"):
+            with gr.Tab(" Submit New Results", id="submit"):
                 gr.HTML("<br><br><center><h2>Submit New Model Results</h2></center><br>")
                 gr.Markdown(
                     """
@@ -245,7 +244,6 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     """
                 )
             
-                # Model Name Input
                 gr.HTML('<label style="color: #212529; font-weight: 600; font-size: 14px; display: block; margin-bottom: 8px;">Model Name</label>')
                 model_name_input = gr.Textbox(
                     label="",
@@ -255,8 +253,8 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 )
                 gr.HTML('<span style="color: #666666; font-size: 12px;">Use a descriptive name to identify your model</span>')
                 
-                # License and URL Section
-                gr.HTML('<h3 style="color: #2f3b7d; margin-top: 24px;">📜 Model License Information</h3>')
+
+                gr.HTML('<h3 style="color: #2f3b7d; margin-top: 24px;"> Model License Information</h3>')
                 gr.HTML(
                     """
                     <div style="background: #fff3cd; padding: 12px 16px; border-radius: 8px; margin: 12px 0; border-left: 4px solid #ffc107;">
@@ -285,8 +283,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                 )
                 gr.HTML('<span style="color: #666666; font-size: 12px;">Required for Open Source models. Must be a valid HuggingFace URL.</span>')
                 
-                # CSV Upload
-                gr.HTML('<h3 style="color: #2f3b7d; margin-top: 24px;">📁 Prediction File</h3>')
+                gr.HTML('<h3 style="color: #2f3b7d; margin-top: 24px;">Prediction File</h3>')
                 with gr.Row():
                     csv_upload = gr.File(
                         label="Upload CSV File",
@@ -295,7 +292,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     )
                     gr.HTML('<span style="color: #666666; font-size: 14px; padding: 20px;">CSV with columns: id, text</span>')
                     
-                submit_btn = gr.Button("🚀 Submit", variant="primary")
+                submit_btn = gr.Button("Submit", variant="primary")
                 output_msg = gr.Textbox(label="Status", interactive=False)
             
                 submission_leaderboard_display = gr.HTML(
@@ -305,7 +302,6 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
             
                 def process_submission_wrapper(model_name, csv_file, license_type, model_url):
                     result_msg, result_html = process_submission(model_name, csv_file, references, license_type, model_url)
-                    # Also return updated main leaderboard
                     main_lb_html = df_to_html(create_main_leaderboard(70, 30))
                     return result_msg, result_html, main_lb_html
                 
@@ -315,7 +311,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     outputs=[output_msg, submission_leaderboard_display, main_leaderboard_html]
                 )
         
-            with gr.Tab("📝 Benchmark Dataset", id="dataset"):
+            with gr.Tab("Benchmark Dataset", id="dataset"):
                 gr.HTML("<br><br><center><h2>About the Benchmark Dataset</h2></center><br>")
                 gr.Markdown(
                     """
