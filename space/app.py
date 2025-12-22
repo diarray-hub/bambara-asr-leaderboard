@@ -116,7 +116,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
                     update_ranking_btn = gr.Button("🔄 Update Ranking", variant="primary")
                     refresh_btn = gr.Button("🔃 Refresh Leaderboard", variant="secondary")
                 
-                main_leaderboard_html = gr.HTML(df_to_html(create_main_leaderboard(70, 30)))
+                main_leaderboard_html = gr.HTML(df_to_html(create_main_leaderboard(50, 50))) # WER=50% and CER=50%
                 
                 def update_leaderboard_with_weights(wer_w, cer_w):
                     description = get_weight_description(wer_w, cer_w)
