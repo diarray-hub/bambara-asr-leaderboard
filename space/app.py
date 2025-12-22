@@ -54,7 +54,7 @@ with gr.Blocks(theme=gr.themes.Default(), title="Bambara ASR Benchmark Leaderboa
     
     with gr.Row():
         gr.Button("MALIBA-AI", link="https://huggingface.co/MALIBA-AI", elem_classes=['flat-navy-button'])
-        gr.Button("Dataset Repository", link="https://huggingface.co/datasets/sudoping01/bambara-speech-recognition-benchmark", elem_classes=['flat-navy-button'])
+        gr.Button("Dataset Repository", link="https://huggingface.co/datasets/MALIBA-AI/bambara-speech-recognition-leaderboard", elem_classes=['flat-navy-button'])
         gr.Button("GitHub Repo", link="https://github.com/MALIBA-AI/bambara-asr-leaderboard", elem_classes=['flat-navy-button'])
         gr.Button("Paper", link="#", elem_classes=['flat-navy-button'])
         gr.Button("Tasks", link="#", elem_classes=['flat-navy-button'])
