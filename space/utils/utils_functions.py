@@ -122,7 +122,7 @@ def format_as_percentage(value):
     return f"{value * 100:.2f}%"
 
 
-def calculate_combined_score(wer_val, cer_val, wer_weight=0.7, cer_weight=0.3):
+def calculate_combined_score(wer_val, cer_val, wer_weight=0.5, cer_weight=0.5):
     total_weight = wer_weight + cer_weight
     if total_weight > 0:
         wer_weight = wer_weight / total_weight
